@@ -28,6 +28,7 @@ class PhotoController < ApplicationController
 	end
 
 	def view_all
+		@myphotos = current_user.photos.all()
 		# redirect_to url_for(:controller => :folders, :action => :view)
 	end
 

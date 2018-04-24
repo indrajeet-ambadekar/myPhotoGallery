@@ -1,1 +1,11 @@
-<h1>all files</h1>
+<div class='row'>
+	<% if @myphotos != nil %>
+	<% @myphotos.each do |photo| %>
+	<div class='col-md-4'>
+		<%= image_tag photo.image.url :micro_thumb %>
+	</div>
+	<% end %>
+	<% else %>
+	<h1>No Files here</h1>
+	<% end %>
+</div>

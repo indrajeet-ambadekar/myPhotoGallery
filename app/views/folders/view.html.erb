@@ -2,7 +2,7 @@
 	<%= form_with model: @folder,:url => '/folders/add' do |f| %>
 	<div class="field">
 		<%= f.label :name %>:
-		<%= f.text_field :name %>
+		<%= f.text_field :name, :required=>true %>
 	</div>
 	<div class="actions">
 		<%= f.submit %>
