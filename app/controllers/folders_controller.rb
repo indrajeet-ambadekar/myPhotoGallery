@@ -23,7 +23,7 @@ class FoldersController < ApplicationController
   def delete
   end
 
-  def add_file
+  def view_files
   end
   private
   def user_params

@@ -7,9 +7,9 @@ Rails.application.routes.draw do
 
   get 'folders/delete'
 
-  get 'folders/add_file'
+  get 'files/view/',:controller => 'photo', :action => 'redirect'
 
-  get 'photo/view'
+  get 'files/view/:id',:controller => 'photo', :action => 'view'
 
   post 'photo/add'
 
@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   get 'photo/delete'
 
   devise_for :users
-  root :to => "photo#view"
+  root :to => "folders#view"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

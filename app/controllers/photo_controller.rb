@@ -1,27 +1,38 @@
 class PhotoController < ApplicationController
 	before_action :authenticate_user!
-  def view
-		@myphotos = current_user.photos.all()
-  end
+	def view
+		if params[:id]!=nil
+			@current_folder = params[:id]
+			@myphotos = current_user.photos.all()
+		else
+			format.html { redirect_to root_url}
+		end
+	end
 
-  def add
+	def add
 		@new_photo = current_user.photos.new(user_params)
 		if @new_photo.save
 			respond_to do |format|
-				format.html { redirect_to photo_view_url}
+				photo_uri = '/files/view/'+user_params[:folder_id]
+				format.html { redirect_to photo_uri}
 			end
 		else
 			render json: { status: 400, message: "Unsuccessfully created todo list.", }.to_json
 		end
-  end
+	end
 
-  def update
-  end
+	def update
+	end
 
-  def delete
-  end
-  private
+	def delete
+	end
+
+	def redirect
+		redirect_to url_for(:controller => :folders, :action => :view)
+	end
+
+	private
 	def user_params
-		params.permit(:name, :image)
+		params.permit(:name, :image, :folder_id)
 	end
 end

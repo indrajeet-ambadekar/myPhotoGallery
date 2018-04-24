@@ -9,12 +9,4 @@
 		<%= f.submit %>
 	</div>
 	<% end %>
-	<div class='row'>
-		<% @myphotos.each_with_index do |photo,index| %>
-		<div class='col-md-12'>
-			<span><%= index+1 %>. <%= photo.name %></span>
-			<%= image_tag photo.image.url :micro_thumb %>
-		</div>
-		<% end %>
-	</div>
 </div>

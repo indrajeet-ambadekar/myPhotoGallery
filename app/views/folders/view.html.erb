@@ -11,7 +11,11 @@
 	<div class='row'>
 		<% @myFolders.each_with_index do |folder,index| %>
 		<div class='col-md-12'>
-			<span><i class='fa fa-folder'></i> <%= folder.name %></span>
+			<span>
+				<a href="/files/view/<%= folder.id %>">
+					<i class='fa fa-folder'></i> <%= folder.name %>
+				</a>
+			</span>
 			
 		</div>
 		<% end %>
