@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'folders/delete'
 
-  get 'files/view/',:controller => 'photo', :action => 'redirect'
+  get 'files/view/',:controller => 'photo', :action => 'view_all'
 
   get 'files/view/:id',:controller => 'photo', :action => 'view'
 

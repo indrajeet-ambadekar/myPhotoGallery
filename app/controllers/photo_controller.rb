@@ -3,7 +3,7 @@ class PhotoController < ApplicationController
 	def view
 		if params[:id]!=nil
 			@current_folder = params[:id]
-			@myphotos = current_user.photos.all()
+			@myphotos = current_user.photos.where(folder_id: params[:id])
 		else
 			format.html { redirect_to root_url}
 		end
@@ -27,8 +27,8 @@ class PhotoController < ApplicationController
 	def delete
 	end
 
-	def redirect
-		redirect_to url_for(:controller => :folders, :action => :view)
+	def view_all
+		# redirect_to url_for(:controller => :folders, :action => :view)
 	end
 
 	private
