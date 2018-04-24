@@ -1,6 +1,12 @@
+require "geocoder"
 class FoldersController < ApplicationController
   before_action :authenticate_user!
   def view
+    puts '_______________________________'
+    puts Geocoder.search(request.remote_ip).first.country
+    puts '_______________________________'
+    puts request.location.country
+    puts '_______________________________'
     @myFolders = current_user.folders.all()
   end
 

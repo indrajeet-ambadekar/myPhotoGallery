@@ -34,6 +34,6 @@ class PhotoController < ApplicationController
 
 	private
 	def user_params
-		params.permit(:name, :image, :folder_id)
+		params.permit(:name, :image, :folder_id, :lat, :lng)
 	end
 end

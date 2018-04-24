@@ -5,6 +5,8 @@
 		<%= f.label :image %><br>
 		<%= f.file_field :image %>
 	</div>
+	<%= f.hidden_field :lat, :id=>'lat', :placeholder=>'enter latitude' %>
+	<%= f.hidden_field :lng, :id=>'lng', :placeholder=>'enter longitude' %>
 	<div class="actions">
 		<%= f.submit %>
 	</div>
@@ -15,7 +17,9 @@
 		<div class='col-md-12'>
 			<%= image_tag photo.image.url :micro_thumb %>
 			<span><%= photo.name %></span>
-			
+			<% geo_localization = "#{photo.lat},#{photo.lng}" %>
+			<% query = Geocoder.search(geo_localization).first %>
+			<%= query.city %>
 		</div>
 		<% end %>
 		<% else %>
@@ -23,3 +27,19 @@
 		<% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		if ("geolocation" in navigator){ 
+			navigator.geolocation.getCurrentPosition(function(position){ 
+				console.log("Found your location \nLat : "+position.coords.latitude+" \nLang :"+ position.coords.longitude);
+				setTimeout(function(){
+					$('#lat').val(position.coords.latitude)
+					$('#lng').val(position.coords.longitude)	
+				},1000)
+			});
+		}else{
+			console.log("Browser doesn't support geolocation!");
+		}
+	});
+</script>
