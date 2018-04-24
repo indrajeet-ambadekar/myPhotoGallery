@@ -1,0 +1,19 @@
+<div class='container'>
+	<%= form_with model: @photo,:url => '/photo/add', html: { multipart: true } do |f| %>
+	<div class="field">
+		<%= f.label :image %><br>
+		<%= f.file_field :image %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+	<% end %>
+	<div class='row'>
+		<% @myphotos.each_with_index do |photo,index| %>
+		<div class='col-md-12'>
+			<span><%= index+1 %>. <%= photo.name %></span>
+			<%= image_tag photo.image.url :micro_thumb %>
+		</div>
+		<% end %>
+	</div>
+</div>
