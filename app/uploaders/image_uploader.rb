@@ -8,7 +8,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::Audio
   include CarrierWave::Video
   include CarrierWave::Video::Thumbnailer
-  include CarrierWave::FFmpeg
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -36,31 +35,22 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :user_video, :if => :video? do
-  #   process :encode
-  #   def full_filename(for_file)
-  #     "#{super.chomp(File.extname(super))}.png"
-  #   end
-  # end
 
-  # def encode
-  #   video = FFMPEG::Movie.new(@file.path)
-  #   video_transcode = video.transcode(@file.path)
-  # end
   version :thumb, :if => :video? do
-    process thumbnail: [{format: 'png', quality: 10, size: 192, strip: true, logger: Rails.logger}]
+    process thumbnail: [{format: 'png', quality: 7, size: 640, strip: false, logger: Rails.logger}]
     def full_filename for_file
-      # png_name for_file, version_name
-      fileFormat = '.png'
-      rawName = for_file.chomp(File.extname(for_file))
-      newName = rawName+fileFormat
-      %Q{#{newName}}
+      png_name for_file, version_name
     end
+    process :set_content_type_png
   end
 
   def png_name for_file, version_name
-    # debugger
     %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.png}
+  end
+
+  def set_content_type_png(*args)
+    Rails.logger.debug "#{file.content_type}"
+    self.file.instance_variable_set(:@content_type, "image/png")
   end
 
   version :micro_thumb, :if => :image? do
