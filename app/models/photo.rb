@@ -7,7 +7,7 @@ class Photo < ApplicationRecord
 
 	private
 		def image_size_validation
-			errors[:image] << "should be less than 500KB" if image.size > 100.5.megabytes
+			errors[:image] << "should be less than 500KB" if image.size > 1005.megabytes
 		end
 		def update_image_attributes
 	    if image.present? && image_changed?

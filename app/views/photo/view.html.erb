@@ -5,21 +5,27 @@
 		<%= f.label :image %><br>
 		<%= f.file_field :image %>
 	</div>
-	<%= f.hidden_field :lat, :id=>'lat', :placeholder=>'enter latitude' %>
-	<%= f.hidden_field :lng, :id=>'lng', :placeholder=>'enter longitude' %>
+	<%= f.text_field :lat, :id=>'lat', :placeholder=>'enter latitude' %>
+	<%= f.text_field :lng, :id=>'lng', :placeholder=>'enter longitude' %>
 	<div class="actions">
 		<%= f.submit %>
 	</div>
 	<% end %>
 	<div class='row'>
 		<% if @myphotos != nil %>
-		<% @myphotos.each do |photo| %>
+		<% @myphotos.each do |file| %>
 		<div class='col-md-12'>
-			<%= image_tag photo.image.url :micro_thumb %>
-			<span><%= photo.name %></span>
-			<% geo_localization = "#{photo.lat},#{photo.lng}" %>
+			<% if file.file_type.include? 'image' %>
+			<%= image_tag file.image.url :micro_thumb %>
+			<% else %>
+			<%= image_tag file.image.url :thumb %>
+			<% end %>
+			<span><%= file.name %></span>
+			<% if defined?file.lat && defined?file.lng %>
+			<% geo_localization = "#{file.lat},#{file.lng}" %>
 			<% query = Geocoder.search(geo_localization).first %>
 			<%= query.city %>
+			<% end %>
 		</div>
 		<% end %>
 		<% else %>
@@ -36,7 +42,7 @@
 				setTimeout(function(){
 					$('#lat').val(position.coords.latitude)
 					$('#lng').val(position.coords.longitude)	
-				},1000)
+				},200)
 			});
 		}else{
 			console.log("Browser doesn't support geolocation!");

@@ -41,6 +41,15 @@ gem 'jquery-ui-rails'
 gem "font-awesome-rails"
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3'
+gem 'carrierwave-audio'
+gem 'carrierwave-video'
+gem 'carrierwave-video-thumbnailer'
+gem 'carrierwave-ffmpeg'
+gem 'video_thumbnailer'
+
+
+gem 'streamio-ffmpeg'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'geocoder'

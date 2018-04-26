@@ -11,13 +11,14 @@ class PhotoController < ApplicationController
 
 	def add
 		@new_photo = current_user.photos.new(user_params)
+		# debugger
 		if @new_photo.save
 			respond_to do |format|
 				photo_uri = '/files/view/'+user_params[:folder_id]
 				format.html { redirect_to photo_uri}
 			end
 		else
-			render json: { status: 400, message: "Unsuccessfully created todo list.", }.to_json
+			format.json { render json: @new_photo.errors, status: :unprocessable_entity }
 		end
 	end
 
